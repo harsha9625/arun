@@ -1,0 +1,39 @@
+name: Text File CI/CD Pipeline
+
+on:
+  push:
+    paths:
+      - 'harsha.txt'
+
+jobs:
+  process-text:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout repo
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Step 2: Display file content
+    - name: Show File Content
+      run: cat harsha.txt
+
+    # Step 3: Validate file (not empty)
+    - name: Validate File
+      run: |
+        if [ ! -s harsha.txt ]; then
+          echo "File is empty!"
+          exit 1
+        fi
+
+    # Step 4: Count characters
+    - name: Count Characters
+      run: wc -c harsha.txt
+
+    # Step 5: Count words
+    - name: Count Words
+      run: wc -w harsha.txt
+
+    # Step 6: Simulate Deployment (optional)
+    - name: Deploy Step
+      run: echo "Text file processed successfully 🚀"
